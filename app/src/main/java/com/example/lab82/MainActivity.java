@@ -12,21 +12,32 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
-    private Intent serviceIntent;
+    private Intent foregroundServiceIntent;
+    private Intent backgroundServiceIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        serviceIntent = new Intent(this, MyService.class);
+
+        foregroundServiceIntent = new Intent(this, MyService.class);
+        backgroundServiceIntent = new Intent(this, RandomCharacterService.class);
     }
 
-    public void startService(View view) {
-        ContextCompat.startForegroundService(this, serviceIntent);
+    public void startForegroundService(View view) {
+        ContextCompat.startForegroundService(this, foregroundServiceIntent);
     }
 
-    public void stopService(View view) {
-        stopService(serviceIntent);
+    public void stopForegroundService(View view) {
+        stopService(foregroundServiceIntent);
+    }
+
+    public void startBackgroundService(View view) {
+        startService(backgroundServiceIntent);
+    }
+
+    public void stopBackgroundService(View view) {
+        stopService(backgroundServiceIntent);
     }
 
     public void nextActivity(View view) {
