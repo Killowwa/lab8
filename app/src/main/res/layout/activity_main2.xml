@@ -1,7 +1,28 @@
-<TextView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:text="Вторая активность"
-    android:textSize="24sp"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"/>
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="24dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Background Service Page"
+        android:textSize="24sp"
+        android:layout_marginBottom="32dp"/>
+
+    <Button
+        android:id="@+id/button_start_background"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start Background Service"/>
+
+    <Button
+        android:id="@+id/button_stop_background"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Stop Background Service"
+        android:layout_marginTop="16dp"/>
+</LinearLayout>
+
