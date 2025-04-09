@@ -62,7 +62,15 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             char data = intent.getCharExtra("randomCharacter", '?');
-            randomCharacterEditText.setText(String.valueOf(data));
+
+            // Чтобы безопасно обновить UI из BroadcastReceiver:
+            runOnUiThread(() -> {
+                randomCharacterEditText.setText(String.valueOf(data));
+            });
+
+            // Также можно добавить Toast для проверки:
+            // Toast.makeText(context, "Получен символ: " + data, Toast.LENGTH_SHORT).show();
         }
     }
+
 }
