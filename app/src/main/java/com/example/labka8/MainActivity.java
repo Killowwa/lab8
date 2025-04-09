@@ -1,6 +1,8 @@
 package com.example.labka8;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -26,17 +28,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.button_start:
-                startService(serviceIntent);
-                break;
-            case R.id.button_end:
-                stopService(serviceIntent);
-                randomCharacterEditText.setText("");
-                break;
+        int id = view.getId();
+        if (id == R.id.button_start) {
+            startService(serviceIntent);
+        } else if (id == R.id.button_end) {
+            stopService(serviceIntent);
+            randomCharacterEditText.setText("");
         }
     }
 
+
+    @SuppressLint("UnspecifiedRegisterReceiverFlag")
     @Override
     protected void onStart() {
         super.onStart();
