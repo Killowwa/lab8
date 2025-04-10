@@ -4,60 +4,44 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.util.Random;
 
 public class RandomCharacterService extends Service {
 
-    private boolean isRandomGeneratorOn = false;
-    private static final String TAG = "RandomCharacterService";
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        Toast.makeText(this, "Background Service Created", Toast.LENGTH_SHORT).show();
-    }
+    private boolean isRunning = false;
+    private static final String TAG = "RandomService";
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        isRandomGeneratorOn = true;
+        isRunning = true;
 
-        // Запускаем фоновый поток для генерации случайных символов
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                startRandomGenerator();
+        new Thread(() -> {
+            while (isRunning) {
+                try {
+                    Thread.sleep(1000);
+
+                    int randomNumber = new Random().nextInt(100); // от 0 до 99
+
+                    Log.d(TAG, "Generated number: " + randomNumber);
+
+                    Intent broadcastIntent = new Intent("com.example.lab82.RANDOM_NUMBER");
+                    broadcastIntent.putExtra("number", randomNumber);
+                    sendBroadcast(broadcastIntent);
+
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         }).start();
 
         return START_STICKY;
     }
 
-    private void startRandomGenerator() {
-        while (isRandomGeneratorOn) {
-            try {
-                Thread.sleep(1000);
-                char randomCharacter = generateRandomCharacter();
-                Log.i(TAG, "Generated character: " + randomCharacter);
-            } catch (InterruptedException e) {
-                Log.i(TAG, "Thread Interrupted.");
-            }
-        }
-    }
-
-    private char generateRandomCharacter() {
-        // Генерация случайного символа (буквы)
-        char[] alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
-        int randomIdx = new Random().nextInt(alphabet.length);
-        return alphabet[randomIdx];
-    }
-
     @Override
     public void onDestroy() {
         super.onDestroy();
-        isRandomGeneratorOn = false;
-        Toast.makeText(this, "Background Service Stopped", Toast.LENGTH_SHORT).show();
+        isRunning = false;
     }
 
     @Override

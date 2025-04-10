@@ -1,28 +1,50 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:background="#E45656"
     android:gravity="center"
+    android:orientation="vertical"
     android:padding="24dp">
 
     <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:text="Background service"
+        android:textAlignment="center"
+        android:textColor="#FAF9F9"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/text_random_number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Background Service Page"
-        android:textSize="24sp"
-        android:layout_marginBottom="32dp"/>
+        android:layout_marginBottom="32dp"
+        android:text="Случайное число: ?"
+        android:textColor="#FAF9F9"
+        android:textSize="24sp" />
 
     <Button
         android:id="@+id/button_start_background"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Start Background Service"/>
+        android:backgroundTint="#1026ED"
+        android:text="Start Service" />
 
     <Button
         android:id="@+id/button_stop_background"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Stop Background Service"
-        android:layout_marginTop="16dp"/>
-</LinearLayout>
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#1026ED"
+        android:text="Stop Service" />
 
+    <Button
+        android:id="@+id/button_back_foreground"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:backgroundTint="#1026ED"
+        android:text="Back" />
+</LinearLayout>

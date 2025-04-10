@@ -2,7 +2,7 @@ package com.example.lab82;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -17,18 +17,21 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         foregroundServiceIntent = new Intent(this, MyService.class);
-    }
 
-    public void startForegroundService(View view) {
-        ContextCompat.startForegroundService(this, foregroundServiceIntent);
-    }
+        Button startButton = findViewById(R.id.button_start_foreground);
+        Button stopButton = findViewById(R.id.button_stop_foreground);
+        Button nextButton = findViewById(R.id.button_next);
 
-    public void stopForegroundService(View view) {
-        stopService(foregroundServiceIntent);
-    }
+        startButton.setOnClickListener(v ->
+                ContextCompat.startForegroundService(this, foregroundServiceIntent)
+        );
 
-    public void nextActivity(View view) {
-        Intent intent = new Intent(this, MainActivity2.class);
-        startActivity(intent);
+        stopButton.setOnClickListener(v ->
+                stopService(foregroundServiceIntent)
+        );
+
+        nextButton.setOnClickListener(v ->
+                startActivity(new Intent(this, MainActivity2.class))
+        );
     }
 }
